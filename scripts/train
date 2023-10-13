@@ -1,0 +1,44 @@
+#! /bin/bash
+
+# Create a conda environment named opennmt if it doesnt exist
+if conda env list | grep -q "opennmt"; then
+    echo "Conda environment exists"
+else
+    echo "Conda environment does not exist"
+    echo "Creating conda environment..."
+    echo "Creating conda environment..."
+    conda create -n opennmt python=3.8
+fi
+
+conda deactivate
+conda activate opennmt
+pip3 install  -r requirements.txt
+
+echo "Preparing data..."
+python3 scripts/download_and_extract_data.py
+python3 scripts/create_data_split.py
+
+echo "Generating Shards"
+python3 preprocess.py -data_type img \
+                -src_dir dataset/data/formula_images_processed \
+                -train_src dataset/data/src-train.txt \
+                -train_tgt dataset/data/tgt-train.txt \
+                -valid_src dataset/data/src-validate.txt \
+                -valid_tgt dataset/data/tgt-validate.txt \
+                -save_data dataset/data/im2latex \
+                -tgt_seq_length 150 \
+                -tgt_words_min_frequency 2 \
+                -shard_size 500 \
+                -image_channel_size 1
+
+echo "Training..."
+python3 train.py -model_type img \
+           -data dataset/data/im2latex \
+           -save_model opennmt-model \
+           -gpu_ranks 0 \
+           -batch_size 20 \
+           -max_grad_norm 20 \
+           -learning_rate 0.1 \
+           -word_vec_size 80 \
+           -encoder_type brnn \
+           -image_channel_size 1
