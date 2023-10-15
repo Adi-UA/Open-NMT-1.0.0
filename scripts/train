@@ -7,7 +7,7 @@ else
     echo "Conda environment does not exist"
     echo "Creating conda environment..."
     echo "Creating conda environment..."
-    conda create -n opennmt python=3.6
+    conda create -n opennmt python=3.8
 fi
 
 eval "$(conda shell.bash hook)"
