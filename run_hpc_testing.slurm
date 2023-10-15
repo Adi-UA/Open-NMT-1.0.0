@@ -15,4 +15,4 @@
 
 module load anaconda/2020
 conda init bash
-./scripts/train
+./scripts/test
