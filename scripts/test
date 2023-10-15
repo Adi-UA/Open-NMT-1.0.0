@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if conda env list | grep -q "opennmt"; then
+    echo "Conda environment exists"
+else
+    echo "Conda environment does not exist"
+    echo "Creating conda environment..."
+    echo "Creating conda environment..."
+    conda create -n opennmt python=3.8
+fi
+
+conda deactivate
+conda activate opennmt
+pip3 install  -r requirements.txt
+
+onmt_translate -data_type img \
+               -model opennmt-model_step_100000.pt \
+               -src_dir dataset/data/formula_images_processed \
+               -src dataset/data/src-test.txt \
+               -output pred.txt \
+               -max_length 150 \
+               -beam_size 5 \
+               -gpu 0 \
+               -verbose
