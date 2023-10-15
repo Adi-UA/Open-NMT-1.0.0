@@ -19,7 +19,7 @@ onmt_translate -data_type img \
                -src_dir dataset/data/formula_images_processed \
                -src dataset/data/src-test.txt \
                -output pred.txt \
-               -image_channel_size 1
+               -image_channel_size 1 \
                -max_length 150 \
                -beam_size 5 \
                -gpu 0 \
