@@ -15,7 +15,7 @@ conda activate opennmt
 pip3 install  -r requirements.txt
 
 onmt_translate -data_type img \
-               -model model.pt \
+               -model model/model.pt \
                -src_dir dataset/data/formula_images_processed \
                -src dataset/data/src-test.txt \
                -output pred.txt \
