@@ -22,7 +22,7 @@ cd Open-NMT-1.2.0
 Assuming you have Miniconda installed, run the following command to install the required packages:
 
 ```
-./install
+./scripts/install
 ```
 
 The install script will create and install the required packages in a virtual environment named `opennmt` that uses Python 3.8. This will automatically be reused by the training and testing scripts.

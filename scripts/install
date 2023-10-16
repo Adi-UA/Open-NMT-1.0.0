@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Create a conda environment named opennmt if it doesnt exist
+conda_env_name="opennmt"
+if conda env list | grep -q $conda_env_name; then
+    echo "Conda environment exists"
+else
+    echo "Conda environment does not exist"
+    echo "Creating conda environment..."
+    echo "Creating conda environment..."
+    conda create -n $conda_env_name python=3.8
+fi
+
+eval "$(conda shell.bash hook)"
+conda deactivate
+conda activate $conda_env_name
+# install cuda 11.8 with conda
+conda install -c anaconda cudatoolkit
+pip install -e . # Install OpenNMT-py in the conda environment
+pip3 install  -r requirements.txt # Update some of the packages to versions that work well with OpenNMT-py 1.2.0
+
+echo "---"
+echo "Done."
+echo "Please run 'conda activate $conda_env_name' to activate the Conda environment before running any scripts."
+find "$(dirname "$(dirname "$CONDA_PREFIX")")" -name libcudnn.so* | xargs dirname |  xargs -I{} echo export LD_LIBRARY_PATH=\"{}\" | tail -n 1 | echo "Then, run the following for CUDA to work:" $(cat)
+echo "---"
