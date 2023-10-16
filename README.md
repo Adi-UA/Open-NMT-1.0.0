@@ -4,23 +4,38 @@ This is my "fork" of [OpenNMT-py v1.2.0](https://github.com/OpenNMT/OpenNMT-py/t
 
 [The best model checkpoint can be found in google drive.](https://drive.google.com/drive/folders/12MvCNaQNJaqK0UfShOrQ-CC3yQlFQAxt?usp=sharing).
 
-## Testing
+## How To Use
 
-1. Create a virtual environment or a conda environment and install th required packages (or the training script would have done it for you):
+### Prerequisites
 
-   ```bash
-   python3 -m venv venv && \
-   pip3 install  -r requirements.txt && \
-   source ./venv/bin/activate # or .\venv\Scripts\activate on Windows
-   ```
+Miniconda: https://docs.conda.io/en/latest/miniconda.html
 
-2. Then, download and place the [best model checkpoint](https://drive.google.com/drive/folders/12MvCNaQNJaqK0UfShOrQ-CC3yQlFQAxt?usp=sharing) in the `model` directory.
+### Setup
 
-3. Create the [test files as required based on the original repo's documentation](https://github.com/OpenNMT/OpenNMT-py/blob/v1.2.0/docs/source/im2text.md). Or if you ran training, the test files for our image2latex100k dataset should already exist in the `dataset/data` directory.
+Clone the repository to your computer and position your command line inside the repository folder:
 
-4. Run `./scripts/test` after modifying the paths to the input files or other options as needed.
+```
+git clone https://github.com/Adi-UA/Open-NMT-1.2.0.git
+cd Open-NMT-1.2.0
+```
 
-## Training
+Assuming you have Miniconda installed, run the following command to install the required packages:
+
+```
+./install
+```
+
+The install script will create and install the required packages in a virtual environment named `opennmt` that uses Python 3.8. This will automatically be reused by the training and testing scripts.
+
+### Testing
+
+1. Download and place the [best model checkpoint](https://drive.google.com/drive/folders/12MvCNaQNJaqK0UfShOrQ-CC3yQlFQAxt?usp=sharing) in the `model` directory.
+
+2. Create the [test files in the format described here](./docs//source/im2text.md). Or if you ran training, the test files for our image2latex100k dataset should already exist in the `dataset/data` directory.
+
+3. Run `./scripts/test` after modifying the paths to the input files or other options as needed.
+
+### Training
 
 Run:
 
@@ -30,30 +45,25 @@ Run:
 
 This will download the dataset, preprocess it, and train the model. The model checkpoints will be saved in the project directory. To change any of the configurations, inspect the `onmt/opts.py` file and update the `./scripts/train` script accordingly. The parameters passed in the training script are the ones I used to train the best model.
 
-## Results
+### Results
 
 The results of our best model on the test set have been saved to the `results` directory. It was created with the following commands:
 
-1. Create a virtual environment or a conda environment and install th required packages (or the training script would have done it for you):
+1. Activate the conda environment
 
    ```bash
-   python3 -m venv venv && \
-   pip3 install  -r requirements.txt && \
-   source ./venv/bin/activate # or .\venv\Scripts\activate on Windows
+   conda activate opennmt
    ```
 
 2. Then, download and place the [best model checkpoint](https://drive.google.com/drive/folders/12MvCNaQNJaqK0UfShOrQ-CC3yQlFQAxt?usp=sharing) in the `model` directory.
 
 3. Run the test script:
+
    ```bash
    ./scripts/test
    ```
 
-This will create `pred.txt` with the predictions on each newline in the order they were input. You can stop here if you don't need these in JSON format.
-
-4. Run the results script to collect the results in the JSON file.
+4. Run the results script to collect the results in the JSON file from the `pred.txt` file:
    ```bash
    python3 scripts/get_im2latex100k_results.py
    ```
-
-Everything else is the same as in the original repo.

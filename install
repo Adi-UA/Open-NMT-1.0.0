@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Create a conda environment named opennmt if it doesnt exist
+if conda env list | grep -q "opennmt"; then
+    echo "Conda environment exists"
+else
+    echo "Conda environment does not exist"
+    echo "Creating conda environment..."
+    echo "Creating conda environment..."
+    conda create -n opennmt python=3.8
+fi
+
+eval "$(conda shell.bash hook)"
+conda deactivate
+conda activate opennmt
+pip install -e . # Install OpenNMT-py in the conda environment
+pip3 install  -r requirements.txt # Update some of the packages to versions that work well with OpenNMT-py 1.2.0
