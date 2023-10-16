@@ -1,5 +1,9 @@
 # OpenNMT-py: Open-Source Neural Machine Translation
 
+[![GitHub License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python Version](https://img.shields.io/badge/Python-3.8-brightgreen)](https://www.python.org/downloads/release/python-380/)
+[![Conda Version](https://img.shields.io/badge/Miniconda-Latest-red)](https://docs.conda.io/en/latest/miniconda.html)
+
 This is my "fork" of [OpenNMT-py v1.2.0](https://github.com/OpenNMT/OpenNMT-py/tree/v1.2.0) (aka the version that still had image input). The goal of this repository is to reproduce the training results of OpenNMT's im2markup model on the [normalized Im2latex-100k dataset](https://im2markup.yuntiandeng.com/data/) that has been put through [some additional preprocessing](https://github.com/Adi-UA/Open-NMT-1.2.0/blob/main/scripts/download_and_extract_data.py#L64-L90).
 
 [The best model checkpoint can be found in google drive.](https://drive.google.com/drive/folders/12MvCNaQNJaqK0UfShOrQ-CC3yQlFQAxt?usp=sharing).
