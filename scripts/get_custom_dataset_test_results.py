@@ -18,7 +18,7 @@ def save_results(dataset: str, results: dict):
 def generate_img_paths_file(dataset_dir):
     print("Generating src-test.txt...")
     images = os.listdir(os.path.join(dataset_dir, "images_processed"))
-    images.sort()
+    images.sort(key = lambda x : int(x.split(".")[0]))
 
     with open(os.path.join(dataset_dir, "src-test.txt"), "w") as f:
         f.write("\n".join(images))
